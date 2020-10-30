@@ -163,7 +163,7 @@ class Bigbluebutton::RoomsController < ApplicationController
   end
 
   def join_mobile
-    filtered_params = select_params_for_join_mobile(params.clone)
+    filtered_params = select_params_for_join_mobile(request.parameters.clone)
     @join_mobile = join_bigbluebutton_room_url(@room, filtered_params.merge({:auto_join => '1' }))
     @join_desktop = join_bigbluebutton_room_url(@room, filtered_params.merge({:desktop => '1' }))
   end
@@ -294,7 +294,7 @@ class Bigbluebutton::RoomsController < ApplicationController
 
     # since we're redirecting to an intermediary page, we set in the params the params
     # we received, including the referer, so we can go back to the previous page if needed
-    filtered_params = select_params_for_join_mobile(params.clone)
+    filtered_params = select_params_for_join_mobile(request.parameters.clone)
     begin
       filtered_params[:redir_url] = Addressable::URI.parse(request.env["HTTP_REFERER"]).path
     rescue
