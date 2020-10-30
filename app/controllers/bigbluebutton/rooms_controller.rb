@@ -334,13 +334,6 @@ class Bigbluebutton::RoomsController < ApplicationController
       url = @room.parameterized_join_url(username, role, id, {}, bigbluebutton_user)
 
       unless url.nil?
-
-        # change the protocol to join with a mobile device
-        if BigbluebuttonRails.use_mobile_client?(browser) &&
-           !BigbluebuttonRails.value_to_boolean(params[:desktop])
-          url.gsub!(/^[^:]*:\/\//i, "bigbluebutton://")
-        end
-
         redirect_to url
       else
         flash[:error] = t('bigbluebutton_rails.rooms.errors.join.not_running')
